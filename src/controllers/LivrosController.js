@@ -11,6 +11,24 @@ class LivrosController {
     });
   }
 
+  async cadastrarLivro(req, res) {
+    try {
+      const dados = req.body;
+      
+      const livro = await new LivrosModel().cadastrarLivro(dados);
+      
+      return res.status(201).json({
+        mensagem: "Livro cadastrado com sucesso",
+        livro: livro
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        mensagem: "Erro interno do servidor"
+      });
+    }
+  }
+
   async atualizarLivroPeloId(req, res) {
     const id = req.params.id;
     const dados = req.body;
